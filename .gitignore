@@ -1,0 +1,32 @@
+# Python bytecode
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+coverage/
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Behave reports
+reports/
+*.feature.stats
+
+# Otros archivos temporales o de sistema
+.DS_Store
