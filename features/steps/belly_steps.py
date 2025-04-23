@@ -1,5 +1,14 @@
-from behave import given, when, then
+from behave import given, when, then, register_type
 import re
+
+def number_validator(number):
+    try:
+        validated_number = float(number)
+        return validated_number
+    except ValueError:
+        print(f"La cantidad de '{number}' pepinos no es valida")
+
+register_type(Number = number_validator)
 
 # Función para convertir palabras numéricas a números
 def convertir_palabra_a_numero(palabra):
@@ -16,7 +25,7 @@ def convertir_palabra_a_numero(palabra):
         }
         return numeros.get(palabra.lower(), 0)
 
-@given('que he comido {cukes:d} pepinos')
+@given('que he comido {cukes:Number} pepinos')
 def step_given_eaten_cukes(context, cukes):
     context.belly.comer(cukes)
 
