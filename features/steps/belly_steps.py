@@ -23,9 +23,10 @@ def step_given_eaten_cukes(context, cukes):
 @when('espero {time_description}')
 def step_when_wait_time_description(context, time_description):
     time_description = time_description.strip('"').lower()
+    time_description = time_description.replace(',',' ')
     time_description = time_description.replace('y', ' ')
     time_description = time_description.strip()
-
+    
     # Manejar casos especiales como 'media hora'
     if time_description == 'media hora':
         total_time_in_hours = 0.5
