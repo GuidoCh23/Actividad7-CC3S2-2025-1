@@ -11,8 +11,11 @@ class Belly:
         self.tiempo_esperado = 0
 
     def comer(self, pepinos):
-        print(f"He comido {pepinos} pepinos.")
-        self.pepinos_comidos += pepinos
+        if pepinos < 0:
+            raise ValueError("No se puede comer cantidades negativas de pepinos")
+        else:
+            print(f"He comido {pepinos} pepinos.")
+            self.pepinos_comidos += pepinos
 
     def esperar(self, tiempo_en_horas):
         if tiempo_en_horas > 0:

@@ -1,5 +1,5 @@
 import pytest
-from features.steps.belly_steps import step_when_wait_time_description
+from features.steps.belly_steps import step_when_wait_time_description, step_given_eaten_cukes
 from src.belly import Belly
 
 class Context:
@@ -24,3 +24,39 @@ def test_description_parsing(input_description, expected):
     context.belly = Belly()
     step_when_wait_time_description(context=context, time_description=input_description)
     assert context.belly.tiempo_esperado == expected
+
+
+@pytest.mark.parametrize(
+        "input_eat_cucumber, expected",
+        [
+            (5.5, 5.5),
+            (6.5, 6.5),
+            (10.5, 10.5),
+            (0.5, 0.5)
+        ]
+)
+def test_eat_fractional_cucumber(input_eat_cucumber, expected):
+    context = Context()
+    context.belly = Belly()
+    step_given_eaten_cukes(context=context, cukes=input_eat_cucumber)
+    assert context.belly.pepinos_comidos == expected
+
+
+@pytest.mark.parametrize(
+        "input_eat_negative_cucumber, expected",
+        [
+            (-5, "No se puede comer cantidades negativas de pepinos"),
+            (-0.5, "No se puede comer cantidades negativas de pepinos"),
+            (-10, "No se puede comer cantidades negativas de pepinos")
+        ]
+)
+def test_eat_negative_cucumber(input_eat_negative_cucumber, expected):
+    context = Context()
+    context.belly = Belly()
+    with pytest.raises(ValueError) as exc_info:
+        step_given_eaten_cukes(context=context, cukes=input_eat_negative_cucumber)
+    
+    print(exc_info.value)
+    #assert "No se puede comer cantidades negativas de pepinos" in str(exc_info.value)
+    #assert expected in str(exc_info.value)
+    assert str(exc_info.value) == expected
