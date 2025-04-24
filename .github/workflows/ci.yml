@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  test:
+  pytest:
     runs-on: ubuntu-latest
     
     steps:
@@ -28,6 +28,42 @@ jobs:
     
     - name: Run pytest
       run: pytest --cov
+      
+  behave-spanish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
     
-    - name: Run behave tests
-      run: behave
+    - name: Setup Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run behave in spanish
+      run: behave --tags=@spanish
+
+  behave-english:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run behave in english
+      run: behave --tags=@english
+    
