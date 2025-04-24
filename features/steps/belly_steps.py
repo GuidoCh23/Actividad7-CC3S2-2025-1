@@ -32,8 +32,9 @@ def step_given_eaten_cukes(context, cukes):
 @when('espero {time_description}')
 def step_when_wait_time_description(context, time_description):
     time_description = time_description.strip('"').lower()
-    time_description = time_description.replace(',',' ')
+    time_description = time_description.replace(',', ' ')
     time_description = time_description.replace('y', ' ')
+    time_description = time_description.replace('and', ' ')
     time_description = time_description.strip()
     
     # Manejar casos especiales como 'media hora'
@@ -41,7 +42,7 @@ def step_when_wait_time_description(context, time_description):
         total_time_in_hours = 0.5
     else:
         # Expresión regular para extraer horas y minutos
-        pattern = re.compile(r'(?:(\w+)\s*horas?)?\s*(?:(\w+)\s*minutos?)?\s*(?:(\w+)\s*segundos?)?')
+        pattern = re.compile(r'(?:(\w+)\s*(?:horas?|hours?))?\s*(?:(\w+)\s*(?:minutos?|minutes?))?\s*(?:(\w+)\s*(?:segundos?|seconds?))?')
         match = pattern.match(time_description)
 
         if match:
