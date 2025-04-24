@@ -37,22 +37,37 @@ Característica: Característica del estómago
     Cuando espero 7200 segundos
     Entonces mi estómago no debería gruñir
 
-  Escenario: comer pepinos y esperar en diferentes formatos
+  Escenario: comer pepinos, no gruñir y esperar en diferentes formatos
     Dado que he comido 20 pepinos
     Cuando espero "dos horas y cincuenta segundos"
     Entonces mi estómago debería gruñir
 
-  Escenario: comer pepinos y esperar en diferentes formatos
+  Escenario: comer pepinos, gruñir y esperar en diferentes formatos
     Dado que he comido 17 pepinos
     Cuando espero "20 minutos y 50 segundos"
     Entonces mi estómago no debería gruñir
 
-  Escenario: comer pepinos y esperar en diferentes formatos
+  Escenario: comer pepinos, gruñir y esperar en diferentes formatos
     Dado que he comido 17 pepinos
     Cuando espero "dos horas, treinta minutos y veinte segundos"
     Entonces mi estómago debería gruñir
 
-  Escenario: comer pepinos y esperar en diferentes formatos
+  Escenario: comer pepinos, gruñir y esperar en diferentes formatos
     Dado que he comido  17.5 pepinos
     Cuando espero "una hora y treinta minutos"
     Entonces mi estómago debería gruñir
+
+  Escenario: comer pepinos, gruñir y esperar usando horas en ingles
+    Dado que he comido 20 pepinos
+    Cuando espero "two hours and thirty minutes"
+    Entonces mi estómago debería gruñir
+
+  Escenario: comer pepinos, no gruñir y esperar usando horas en ingles
+    Dado que he comido 7 pepinos
+    Cuando espero "two hours, thirty minutes and fifty seconds"
+    Entonces mi estómago no debería gruñir
+
+  Escenario: comer pepinos, gruñir y esperar usando horas en ingles
+    Dado que he comido 25 pepinos
+    Cuando espero "1 hour and 50 seconds"
+    Entonces mi estómago no debería gruñir
