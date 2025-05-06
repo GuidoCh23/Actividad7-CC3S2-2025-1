@@ -1,3 +1,4 @@
+import random
 from behave import given, when, then, register_type
 import re
 
@@ -32,6 +33,29 @@ def convertir_palabra_a_numero(palabra):
             "eighty": 80, "ninety": 90, "half": 0.5
         }
         return numeros.get(palabra.lower(), 0)
+    
+
+def range_time_description(time_description):
+    random_time_description = time_description.strip().lower()
+    pattern = re.compile(r'(?:un tiempo aleatorio )?entre\s+(\w+)\s+(?:y|and)\s+(\w+)(?:\s+(?:horas?|hours?))?')
+    match = pattern.match(random_time_description)
+    if match:
+        lower_word = match.group(1) or "0"
+        higher_word = match.group(2) or "0"
+        lower = convertir_palabra_a_numero(lower_word)
+        higher = convertir_palabra_a_numero(higher_word)
+
+        random_time_hours = random.uniform(lower, higher)
+
+        seed_value = 42
+        random.seed(seed_value)
+
+        print(f'Tiempo aleatorio generado: {random_time_hours:.2f} horas (entre {lower} y {higher})')
+
+        return random_time_hours
+    else:
+        raise ValueError(f"No se pudo interpretar el rango de tiempo: {random_time_description}")
+
 
 @given('que he comido {cukes:Number} pepinos')
 def step_given_eaten_cukes(context, cukes):
@@ -39,32 +63,35 @@ def step_given_eaten_cukes(context, cukes):
 
 @when('espero {time_description}')
 def step_when_wait_time_description(context, time_description):
-    time_description = time_description.strip('"').lower()
-    time_description = time_description.replace(',', ' ')
-    time_description = time_description.replace('y', ' ')
-    time_description = time_description.replace('and', ' ')
-    time_description = time_description.strip()
-    
-    # Manejar casos especiales como 'media hora'
-    if time_description == 'media hora' or time_description == 'half an hour':
-        total_time_in_hours = 0.5
+    if 'entre' in time_description:
+        total_time_in_hours = range_time_description(time_description)
     else:
-        # Expresión regular para extraer horas y minutos
-        pattern = re.compile(r'(?:(\w+)\s*(?:horas?|hours?))?\s*(?:(\w+)\s*(?:minutos?|minutes?))?\s*(?:(\w+)\s*(?:segundos?|seconds?))?')
-        match = pattern.match(time_description)
+        time_description = time_description.strip('"').lower()
+        time_description = time_description.replace(',', ' ')
+        time_description = time_description.replace('y', ' ')
+        time_description = time_description.replace('and', ' ')
+        time_description = time_description.strip()
 
-        if match:
-            hours_word = match.group(1) or "0"
-            minutes_word = match.group(2) or "0"
-            seconds_word = match.group(3) or "0"
-
-            hours = convertir_palabra_a_numero(hours_word)
-            minutes = convertir_palabra_a_numero(minutes_word)
-            seconds = convertir_palabra_a_numero(seconds_word)
-
-            total_time_in_hours = hours + (minutes / 60) + (seconds / 3600)
+        # Manejar casos especiales como 'media hora'
+        if time_description == 'media hora' or time_description == 'half an hour':
+            total_time_in_hours = 0.5
         else:
-            raise ValueError(f"No se pudo interpretar la descripción del tiempo: {time_description}")
+            # Expresión regular para extraer horas y minutos
+            pattern = re.compile(r'(?:(\w+)\s*(?:horas?|hours?))?\s*(?:(\w+)\s*(?:minutos?|minutes?))?\s*(?:(\w+)\s*(?:segundos?|seconds?))?')
+            match = pattern.match(time_description)
+
+            if match:
+                hours_word = match.group(1) or "0"
+                minutes_word = match.group(2) or "0"
+                seconds_word = match.group(3) or "0"
+
+                hours = convertir_palabra_a_numero(hours_word)
+                minutes = convertir_palabra_a_numero(minutes_word)
+                seconds = convertir_palabra_a_numero(seconds_word)
+
+                total_time_in_hours = hours + (minutes / 60) + (seconds / 3600)
+            else:
+                raise ValueError(f"No se pudo interpretar la descripción del tiempo: {time_description}")
 
     context.belly.esperar(total_time_in_hours)
 
