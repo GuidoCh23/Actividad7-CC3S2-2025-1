@@ -47,6 +47,9 @@ def range_time_description(time_description):
 
         random_time_hours = random.uniform(lower, higher)
 
+        seed_value = 42
+        random.seed(seed_value)
+
         print(f'Tiempo aleatorio generado: {random_time_hours:.2f} horas (entre {lower} y {higher})')
 
         return random_time_hours
