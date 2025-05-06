@@ -47,6 +47,8 @@ def range_time_description(time_description):
 
         random_time_hours = random.uniform(lower, higher)
 
+        print(f'Tiempo aleatorio generado: {random_time_hours:.2f} horas (entre {lower} y {higher})')
+
         return random_time_hours
     else:
         raise ValueError(f"No se pudo interpretar el rango de tiempo: {random_time_description}")
