@@ -84,3 +84,9 @@ Característica: Característica del estómago
     Dado que he comido 25 pepinos
     Cuando espero "1 hour and 50 seconds"
     Entonces mi estómago no debería gruñir
+  
+  @spanish
+  Escenario: Comer pepinos y esperar un tiempo aleatorio
+    Dado que he comido 25 pepinos
+    Cuando espero un tiempo aleatorio entre 1 y 3 horas
+    Entonces mi estómago debería gruñir
