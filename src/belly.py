@@ -13,6 +13,8 @@ class Belly:
     def comer(self, pepinos):
         if pepinos < 0:
             raise ValueError("No se puede comer cantidades negativas de pepinos")
+        elif pepinos > 100:
+            raise ValueError("No se puede comer mas de 100 pepinos")
         else:
             print(f"He comido {pepinos} pepinos.")
             self.pepinos_comidos += pepinos
