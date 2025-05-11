@@ -60,3 +60,10 @@ def test_eat_negative_cucumber(input_eat_negative_cucumber, expected):
     #assert "No se puede comer cantidades negativas de pepinos" in str(exc_info.value)
     #assert expected in str(exc_info.value)
     assert str(exc_info.value) == expected
+
+
+def test_estomago_gruñir_si_comido_muchos_pepinos():
+    belly = Belly()
+    belly.comer(15)
+    belly.esperar(2)
+    assert belly.esta_gruñendo() == True
