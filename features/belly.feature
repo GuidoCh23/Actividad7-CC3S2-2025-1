@@ -128,7 +128,7 @@ Característica: Característica del estómago
     Entonces mi estómago no debería gruñir
 
   @spanish
-  Escenario: Verificar que el estómago gruñe tras comer suficientes pepinos y esperar
-    Dado que he comido 20 pepinos
+  Escenario: Saber cuántos pepinos he comido
+    Dado que he comido 15 pepinos
     Cuando espero 2 horas
     Entonces mi estómago debería gruñir
